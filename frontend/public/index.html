@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection</title>
+</head>
+<body>
+    <h1>Fraud Detection System</h1>
+    <form id="fraudForm">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount"><br>
+        <label for="time">Time:</label>
+        <input type="text" id="time" name="time"><br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location"><br>
+        <button type="button" onclick="checkFraud()">Check Fraud</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function checkFraud() {
+            let data = {
+                amount: document.getElementById('amount').value,
+                time: document.getElementById('time').value,
+                location: document.getElementById('location').value
+            };
+            fetch('https://your-api-gateway-url', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = 'Fraud Detected: ' + data.fraud_flag;
+            });
+        }
+    </script>
+</body>
+</html>
